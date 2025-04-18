@@ -1,0 +1,478 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #0f0f0f;
+  color: #f2f2f2;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+header {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #131313;
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 1000; /* Ensure header stays on top */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add subtle shadow */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo img {
+  height: 40px;
+}
+
+nav a {
+  margin-left: 2rem;
+  color: #f2f2f2;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #00c4a7;
+}
+
+/* Hero Section Animation */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8rem 2rem; /* Increased padding slightly */
+  text-align: center;
+  min-height: 70vh; /* Give hero more space */
+  position: relative; /* Needed for overlay positioning */
+  background-image: url('../src/frameHero.png'); /* Fixed path to background image */
+  background-size: cover; /* Cover the entire section */
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat;
+  overflow: hidden; /* Ensure overlay fits within */
+}
+
+/* Add a dark overlay for text readability */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 15, 15, 0.7); /* Dark semi-transparent overlay */
+    z-index: 1; /* Place overlay below content */
+}
+
+/* Ensure content is above the overlay */
+.hero h1,
+.hero p,
+.hero .cta-button {
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  max-width: 800px;
+  margin-bottom: 1.5rem;
+  animation: fadeInDown 1s ease-out; /* Add animation */
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: #ccc;
+  max-width: 700px;
+  margin-bottom: 2rem;
+  animation: fadeInDown 1s ease-out 0.3s; /* Add animation with delay */
+  animation-fill-mode: backwards; /* Start hidden before animation */
+}
+
+.cta-button {
+  background-color: #00c4a7;
+  color: #000;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; /* Add transform transition */
+  animation: fadeInUp 1s ease-out 0.6s; /* Add animation with delay */
+  animation-fill-mode: backwards; /* Start hidden before animation */
+}
+
+.cta-button:hover {
+  background-color: #00a38b;
+  transform: translateY(-3px); /* Add subtle lift on hover */
+}
+
+.section {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  text-align: center; /* Center section titles */
+}
+
+/* Features Section Animation */
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background-color: #1c1c1c;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s; /* Add transitions */
+  animation: slideInUp 0.8s ease-out; /* Add animation */
+  opacity: 0; /* Start hidden */
+  animation-fill-mode: forwards; /* Keep final state */
+}
+
+/* Stagger feature card animations */
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.3s; }
+.feature-card:nth-child(3) { animation-delay: 0.5s; }
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 10px 20px rgba(0, 196, 167, 0.1); /* Subtle glow */
+}
+
+.feature-card h3 {
+  margin-bottom: 1rem;
+  color: #00c4a7;
+}
+
+/* About Us Section */
+#sobre {
+    background-color: #131313; /* Slightly different background */
+    padding: 5rem 2rem;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column; /* Stack image and text on small screens */
+    align-items: center;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center; /* Center text by default */
+}
+
+@media (min-width: 768px) { /* Adjust layout for larger screens */
+    .about-content {
+        flex-direction: row; /* Side-by-side layout */
+        text-align: left; /* Align text left */
+    }
+    .about-text {
+         flex: 1; /* Allow text to take available space */
+    }
+     .about-image {
+         flex-basis: 40%; /* Control image width */
+     }
+}
+
+.about-image {
+    max-width: 100%; /* Ensure image is responsive */
+    width: 350px; /* Max width for the image container */
+    height: auto;
+    border-radius: 1rem; /* Match card style */
+    object-fit: cover; /* Ensure image covers the area nicely */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    animation: slideInUp 1s ease-out; /* Reuse animation */
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #00c4a7; /* Highlight color */
+    animation: fadeInDown 1s ease-out; /* Reuse animation */
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.7; /* Improve readability */
+    animation: fadeInDown 1s ease-out 0.3s; /* Reuse animation */
+    animation-fill-mode: backwards;
+}
+
+/* Contact Section */
+#contato {
+    background-color: #0f0f0f; /* Keep dark background */
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.contact-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#contato h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #f2f2f2; /* White title */
+    animation: fadeInDown 1s ease-out;
+}
+
+#contato p {
+    font-size: 1.1rem;
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 1s ease-out 0.3s;
+    animation-fill-mode: backwards;
+}
+
+.contact-links {
+    display: flex; /* Use flexbox for links */
+    justify-content: center;
+    gap: 2rem; /* Space between links */
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 1s ease-out 0.5s;
+    animation-fill-mode: backwards;
+}
+
+.contact-links a {
+    color: #00c4a7;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-flex; /* Align icon and text if using icons */
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and text */
+    transition: color 0.3s, transform 0.3s;
+}
+
+/* Add hover effect like nav links */
+.contact-links a:hover {
+    color: #00a38b;
+    transform: translateY(-3px);
+}
+
+/* Style the main CTA button */
+#contato .cta-button {
+    padding: 1.2rem 2.5rem; /* Slightly larger */
+    font-size: 1.1rem;
+    animation: fadeInUp 1s ease-out 0.7s;
+    animation-fill-mode: backwards;
+    /* Inherits base .cta-button styles */
+}
+
+footer {
+  background-color: #131313;
+  text-align: center;
+  padding: 2rem;
+  color: #777;
+  margin-top: 0; /* Remove margin if about section is directly above */
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #f2f2f2;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  background-color: #131313;
+  padding: 1rem;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.mobile-menu.active {
+  display: block;
+}
+
+.mobile-menu a {
+  display: block;
+  color: #f2f2f2;
+  text-decoration: none;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.mobile-menu a:hover {
+  color: #00c4a7;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .mobile-menu.active {
+    display: block;
+  }
+
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+
+  .hero {
+    padding: 4rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .section {
+    padding: 2rem 1rem;
+  }
+
+  .about-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-image {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .contact-links {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
+.email-capture {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.email-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.email-form input[type="email"] {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 2px solid #00c4a7;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f2f2f2;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.email-form input[type="email"]:focus {
+    outline: none;
+    border-color: #00a38b;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.email-form input[type="email"]::placeholder {
+    color: #999;
+}
+
+.submit-button {
+    padding: 0.8rem 1.5rem;
+    background-color: #00c4a7;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #00a38b;
+}
+
+.success-message {
+    display: none;
+    text-align: center;
+    color: #00c4a7;
+    font-weight: 600;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    background-color: rgba(0, 196, 167, 0.1);
+}
+
+/* Responsive styles for the email form */
+@media (max-width: 768px) {
+    .email-form {
+        flex-direction: column;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+} 
